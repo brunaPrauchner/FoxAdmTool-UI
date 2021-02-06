@@ -15,10 +15,14 @@ describe('UserForm', () => {
 
     it("renders a form input with cpf as unique identifier", ()=> {
         const wrapper = shallow(<UserForm />);
-        //expect(wrapper.find('form.input').prop('name')).toEqual('cpf');
-        //expect(wrapper.find('label').text()).toBe('CPF');
+        expect(wrapper.find('form input').prop('name')).toEqual('cpf');
     });
     
+    it("renders a form input with cpf as a placeholder", ()=> {
+        const wrapper = shallow(<UserForm />);
+        expect(wrapper.find('form input').prop('placeholder')).toEqual('CPF');
+    });
+
     it("renders a submit button", ()=> {
         const wrapper = shallow(<UserForm />);
         expect(wrapper.find('button').text()).toEqual('Submit');

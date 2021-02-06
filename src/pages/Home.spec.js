@@ -18,9 +18,10 @@ describe('Home', () => {
     expect(wrapper.find('UserForm').exists()).toBe(true);
   })
 
-  it("after clicking Show All Users goes to Users page", ()=> {
+  it("after clicking Show All Users button goes to Users page", ()=> {
     const wrapper = shallow(<Home />);
-    //expect(wrapper.find('UIButton').exists()).toBe(true);
+    expect(wrapper.find('Link#users-page-link').prop('to')).toBe('users');
+    expect(wrapper.find('Link#users-page-link UIButton').exists()).toBe(true);
   })
 
 
