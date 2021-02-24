@@ -1,11 +1,11 @@
 import UserInfo from "../components/UserInfo";
 import ShoppingItem from "../components/ShoppingItem";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"
 import './User.css';
-const User = ({ userInfo }) => {
 
-  const USER = { name: 'Bruna Goods', email: 'b@yopmail.com', cpf: '12345678911' }
-  
+const User = () => {
+  let { state } = useLocation();
+
   return (
     <>
       <Link to="/">home</Link>
@@ -14,10 +14,11 @@ const User = ({ userInfo }) => {
         <div>Email</div>
         <div>CPF</div>
       </div>
-      <UserInfo name={USER.name} email={USER.email} cpf={USER.cpf} />
+      <UserInfo name={state.user.nameuser} email={state.user.emailuser} cpf={state.user.cpfuser} />
       <div id='shopping-label'>Shopping List</div>
-      <ShoppingItem />
+      <ShoppingItem arrayItems={state.user.query} />
     </>
   )
 }
+
 export default User;

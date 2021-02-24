@@ -1,31 +1,29 @@
-import './Users.css';
+import { useLocation, useNavigate, Link } from "react-router-dom"
+import { apiProvider } from '../services/apiProvider';
 import './Home';
-import {Link, Outlet, useLocation} from "react-router-dom";
-import UserInfo from '../components/UserInfo';
+import './Users.css';
 
 const Users = () => {
-  const USERS = [{name: 'Bruna Goods', email: 'b@yopmail.com', cpf: '12345678911'},
-                 {name: 'Lizza Miller', email: 'l@yopmail.com', cpf: '14975678943'},
-                 {name: 'Kelsey Gordon', email: 'k@yopmail.com', cpf: '26497563187'}]
-  
-  const handleClick = (cpf) => {
-    console.log(cpf)
-  }
+  let { state } = useLocation();
+  let navigate = useNavigate();
 
-  const listUsers = USERS.map((user, i) =>
-  <li key={i} onClick={() => handleClick(user.cpf)}>
-    {user.name} {user.email} {user.cpf}
-  </li>);
+  const handleClick = async (cpf) => {
+    const result = await apiProvider.postAllInfo({ cpf })
+    navigate('/user', { state: { user: result.data } });
+  }
+  const listUsers = state.users.map((user, i) =>
+    <li key={i} onClick={() => handleClick(user.cpf)}>
+      {user.name} {user.email} {user.cpf}
+    </li>);
 
   return (
-    <>
     <div>
-    <Link to="/">home</Link>
+      <Link to="/">home</Link>
       <h2>Click name to go to User Details</h2>
       <ul>{listUsers}
-      </ul>     
+      </ul>
     </div>
-    </>
   )
 }
+
 export default Users;

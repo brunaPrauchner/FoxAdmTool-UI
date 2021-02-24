@@ -8,19 +8,14 @@ describe('UIButton', () => {
   })
 
   it('renders a button with label', () => {
-    const wrapper = shallow(<UIButton text='Show Users'/>);
+    const wrapper = shallow(<UIButton text='Show Users' />);
     expect(wrapper.find('button').text()).toBe('Show Users');
   })
 
   it('when button clicked execute a function', () => {
-    // Arrange
     const onClickMock = jest.fn()
-    const wrapper = shallow(<UIButton handleOnClick={onClickMock}/>);
-
-    // Act
+    const wrapper = shallow(<UIButton handleOnClick={onClickMock} />);
     wrapper.find('button').simulate('click');
-
-    // Assert
     expect(onClickMock).toHaveBeenCalledTimes(1);
   })
 });

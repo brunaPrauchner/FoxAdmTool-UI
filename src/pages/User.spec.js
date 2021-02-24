@@ -1,6 +1,20 @@
 import User from './User';
 import { shallow } from 'enzyme';
 
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useLocation: () => ({
+    state: {
+      user: {
+        nameuser: 'Bruna Goods',
+        emailuser: 'b@yopmail.com',
+        cpfuser: '12345678911',
+        query: []
+      }
+    }
+  })
+}))
+
 describe('User', () => {
   it('renders without crashing', () => {
     const wrapper = shallow(<User />);
@@ -20,9 +34,9 @@ describe('User', () => {
     expect(wrapper.find('div#shopping-label').text()).toBe('Shopping List');
   });
 
-  it('renders ShoppingItem component in a list', () => {
+  it('renders ShoppingItem component with items', () => {
     const wrapper = shallow(<User />);
     expect(wrapper.find('ShoppingItem').exists()).toBe(true);
+    expect(wrapper.find('ShoppingItem').prop('arrayItems')).toEqual([]);
   });
-
 });

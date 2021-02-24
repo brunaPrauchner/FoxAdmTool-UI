@@ -1,17 +1,22 @@
 import UIButton from '../components/UIButton';
 import UserForm from '../components/UserForm';
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { apiProvider } from '../services/apiProvider';
+import { useNavigate } from "react-router-dom"
 import './Home.css';
 
 const Home = () => {
+  let navigate = useNavigate();
+
+  const onShowAllUsers = async () => {
+    const result = await apiProvider.getAllUsers()
+    navigate('/users', { state: { users: result.data } });
+  }
+
   return (
     <div className={'home'}>
-      <Link to="/">home</Link>
       <UserForm />
       <div className='margin-top'>
-        <Link id='users-page-link' to="users">
-          <UIButton text='Show All Users'/>
-        </Link>
+        <UIButton text='Show All Users' handleOnClick={onShowAllUsers} />
       </div>
     </div>
   )
